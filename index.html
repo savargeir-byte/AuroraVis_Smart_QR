@@ -24,18 +24,18 @@
   </style>
   <script>
     const iosUrl = "https://apps.apple.com/us/app/aurora-vision/id6755445402";
-    const androidUrl = "android-soon.html";
+    const androidUrl = "https://savargeir-byte.github.io/AuroraVis_Smart_QR/android-soon.html";
 
     const ua = navigator.userAgent || navigator.vendor || window.opera;
 
     if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
       // iOS device
       window.location.href = iosUrl;
-    } 
+    }
     else if (/android/i.test(ua)) {
       // Android device
       window.location.href = androidUrl;
-    } 
+    }
     else {
       // Desktop or other → show Android coming soon
       window.location.href = androidUrl;
