@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuroraVision - Download QR Code</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0f1e 0%, #1a2332 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.2);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+        }
+
+        .app-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5em;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #00ff88;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .subtitle {
+            color: #b0c4de;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .qr-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .qr-overlay-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 4px solid white;
+        }
+
+        .instructions {
+            color: #b0c4de;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        .instructions strong {
+            color: #00ff88;
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+            color: #0a0f1e;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1em;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #7a8ea4;
+            font-size: 0.85em;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                background: white;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            .download-btn {
+                display: none;
+            }
+        }
+    </style>
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="app-icon">🌌</div>
+        <h1>AuroraVision</h1>
+        <p class="subtitle">Scan to Download</p>
+
+        <div class="qr-container">
+            <div id="qrcode"></div>
+            <div class="qr-overlay-icon">🌌</div>
+        </div>
+
+        <div class="instructions">
+            <strong>📱 Scan with your phone camera</strong><br>
+            iOS users will be directed to the App Store<br>
+            Android version coming soon
+        </div>
+
+        <button class="download-btn" onclick="downloadQR()">
+            💾 Download QR Code
+        </button>
+
+        <div class="footer">
+            Track aurora borealis forecasts worldwide
+        </div>
+    </div>
+
+    <script>
+        // Generate QR code
+        const qrUrl = "https://savargeir-byte.github.io/AuroraVis_Smart_QR/";
+        
+        new QRCode(document.getElementById("qrcode"), {
+            text: qrUrl,
+            width: 256,
+            height: 256,
+            colorDark: "#0a0f1e",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        // Download QR code as image
+        function downloadQR() {
+            const canvas = document.querySelector('#qrcode canvas');
+            if (canvas) {
+                const link = document.createElement('a');
+                link.download = 'auroravision-qr-code.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            } else {
+                // Fallback: print page
+                window.print();
+            }
+        }
+    </script>
+</body>
+</html>
