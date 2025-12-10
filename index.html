@@ -3,49 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AuroraVision App</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #0a0f1e 0%, #1a2332 100%);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
-    .emoji {
-      font-size: 4em;
-      margin-bottom: 0.5em;
-    }
-  </style>
+  <title>AuroraVision</title>
   <script>
-    const iosUrl = "https://apps.apple.com/us/app/aurora-vision/id6755445402";
-    const androidUrl = "https://savargeir-byte.github.io/AuroraVis_Smart_QR/android-soon.html";
+    (function() {
+      const iosUrl = "https://apps.apple.com/us/app/aurora-vision/id6755445402";
+      const androidUrl = "https://savargeir-byte.github.io/AuroraVis_Smart_QR/android-soon.html";
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
 
-    const ua = navigator.userAgent || navigator.vendor || window.opera;
-
-    if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
-      // iOS device
-      window.location.href = iosUrl;
-    }
-    else if (/android/i.test(ua)) {
-      // Android device
-      window.location.href = androidUrl;
-    }
-    else {
-      // Desktop or other → show Android coming soon
-      window.location.href = androidUrl;
-    }
+      if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+        window.location.replace(iosUrl);
+      }
+      else if (/android/i.test(ua)) {
+        window.location.replace(androidUrl);
+      }
+      else {
+        window.location.replace(androidUrl);
+      }
+    })();
   </script>
 </head>
 <body>
-  <div>
-    <div class="emoji">🌌</div>
-    <p>Redirecting to AuroraVision...</p>
-  </div>
+  <p>Redirecting...</p>
 </body>
 </html>
